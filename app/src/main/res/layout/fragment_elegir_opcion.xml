@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dialogos.ElegirOpcion">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="268dp"
+        android:background="#494747">
+
+        <ImageView
+            android:id="@+id/circulo"
+            android:layout_width="115dp"
+            android:layout_height="86dp"
+            android:layout_marginEnd="31dp"
+            android:layout_marginBottom="61dp"
+            android:src="@drawable/circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView7" />
+
+        <ImageView
+            android:id="@+id/equis"
+            android:layout_width="92dp"
+            android:layout_height="84dp"
+            android:layout_marginStart="31dp"
+            android:layout_marginEnd="42dp"
+            android:layout_marginBottom="61dp"
+            android:src="@drawable/x"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView7"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="410dp"
+            android:layout_height="73dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginBottom="46dp"
+            android:foregroundTint="#F3F3F3"
+            android:text="ELIGE TUS FICHAS"
+            android:textAlignment="center"
+            android:textColor="#FBFBFB"
+            android:textSize="34sp"
+            app:layout_constraintBottom_toTopOf="@+id/equis"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="44dp"
+            android:layout_height="62dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginBottom="61dp"
+            android:foregroundTint="#F3F3F3"
+            android:text="O"
+            android:textColor="#FBFBFB"
+            android:textSize="48sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/circulo"
+            app:layout_constraintStart_toEndOf="@+id/equis" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
