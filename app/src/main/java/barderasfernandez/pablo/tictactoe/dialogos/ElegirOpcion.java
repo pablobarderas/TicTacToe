@@ -70,7 +70,7 @@ public class ElegirOpcion extends DialogFragment {
         circulo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(actividad, "Circulo", Toast.LENGTH_SHORT).show();
+                Toast.makeText(actividad, "Empiezas con círculos", Toast.LENGTH_SHORT).show();
                 opcion = "circulo";
                 dismiss();
             }
