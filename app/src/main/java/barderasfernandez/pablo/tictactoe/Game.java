@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
+import java.util.Random;
 
 import barderasfernandez.pablo.tictactoe.dialogos.ElegirOpcion;
 
@@ -21,6 +23,8 @@ public class Game extends AppCompatActivity {
             0, 0, 0
     };
 
+    int estado = 0;
+    int fichasPuestas = 0;
     TextView txtUserView;
     String opcionJugador;
     boolean juegoEmpezado = false;
@@ -65,18 +69,84 @@ public class Game extends AppCompatActivity {
 
         juegoEmpezado = true;
 
+        // HACER BOTONES VISIBLES
+        Button b1, b2, b3, b4, b5, b6, b7,b8,b9;
+        b1 = findViewById(R.id.btn1);
+        b2 = findViewById(R.id.btn2);
+        b3 = findViewById(R.id.btn3);
+        b4 = findViewById(R.id.btn4);
+        b5 = findViewById(R.id.btn5);
+        b6 = findViewById(R.id.btn6);
+        b7 = findViewById(R.id.btn7);
+        b8 = findViewById(R.id.btn8);
+        b9 = findViewById(R.id.btn9);
+
+        b1.setVisibility(View.VISIBLE);
+        b2.setVisibility(View.VISIBLE);
+        b3.setVisibility(View.VISIBLE);
+        b4.setVisibility(View.VISIBLE);
+        b5.setVisibility(View.VISIBLE);
+        b6.setVisibility(View.VISIBLE);
+        b7.setVisibility(View.VISIBLE);
+        b8.setVisibility(View.VISIBLE);
+        b9.setVisibility(View.VISIBLE);
 
     }
 
     // MOSTRAR IMAGEN SEGUN SE PULSA
     public void ponerFicha(View view){
 
-        // OBTENER EL BOTÓN QUE SE PULSA Y MOSTRAR LA IMAGEN CORRESPONDIENTE
-        int numBtn = Arrays.asList(botones).indexOf(view.getId());
-        view.setBackgroundResource(R.drawable.circle);
-        tablero[numBtn] = 1;
+        if (estado == 0) {
+            // OBTENER EL BOTÓN QUE SE PULSA Y MOSTRAR LA IMAGEN CORRESPONDIENTE
+            int numBtn = Arrays.asList(botones).indexOf(view.getId());
+
+            if (tablero[numBtn] == 0){
+                if (opcionJugador.equals("circulo")) {
+                    view.setBackgroundResource(R.drawable.circle);
+                } else {
+                    view.setBackgroundResource(R.drawable.x);
+                }
+                tablero[numBtn] = 1;
+
+                // SE COLOCA UNA FICHA EN UNA POSICIÓN
+                fichasPuestas +=1;
+                estado = comprobarEstado();
+                if (estado == 0){
+                    ia();
+                    fichasPuestas +=1;
+                    estado = comprobarEstado();
+                }
+
+            }
+
+
+        }
 
     }
 
+    public void ia(){
+        Random random = new Random();
+        int pos = random.nextInt(tablero.length);
+
+        while(tablero[pos] != 0){
+            pos = random.nextInt(tablero.length);
+        }
+
+        Button b = findViewById(botones[pos]);
+        if(opcionJugador.equals("circulo")){
+            b.setBackgroundResource(R.drawable.x);
+        }else {
+            b.setBackgroundResource(R.drawable.circle);
+        }
+        tablero[pos] = -1;
+    }
+
+    public int comprobarEstado(){
+        if(fichasPuestas < 9){
+            return 0;
+        }else{
+            return 2;
+        }
+    }
 
 }

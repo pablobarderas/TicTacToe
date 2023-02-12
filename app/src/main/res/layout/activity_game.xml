@@ -84,6 +84,7 @@
         android:layout_width="0dp"
         android:layout_height="113dp"
         android:onClick="ponerFicha"
+        android:visibility="invisible"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn2"
         app:layout_constraintEnd_toEndOf="@+id/btn4"
         app:layout_constraintStart_toStartOf="@+id/btn4" />
@@ -93,6 +94,7 @@
         android:layout_width="0dp"
         android:layout_height="113dp"
         android:onClick="ponerFicha"
+        android:visibility="invisible"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn2"
         app:layout_constraintEnd_toEndOf="@+id/btn6"
         app:layout_constraintStart_toStartOf="@+id/btn6" />
@@ -102,6 +104,7 @@
         android:layout_width="0dp"
         android:layout_height="113dp"
         android:onClick="ponerFicha"
+        android:visibility="invisible"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn5"
         app:layout_constraintEnd_toEndOf="@+id/btn9"
         app:layout_constraintStart_toStartOf="@+id/btn9" />
@@ -113,6 +116,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="16dp"
         android:onClick="ponerFicha"
+        android:visibility="invisible"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn8" />
@@ -123,6 +127,7 @@
         android:layout_height="113dp"
         android:layout_marginTop="52dp"
         android:onClick="ponerFicha"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -134,6 +139,7 @@
         android:layout_marginTop="140dp"
         android:layout_marginBottom="142dp"
         android:onClick="ponerFicha"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/btn8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -145,6 +151,7 @@
         android:layout_height="113dp"
         android:layout_marginBottom="47dp"
         android:onClick="ponerFicha"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/btnEmpezar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -154,6 +161,7 @@
         android:layout_width="0dp"
         android:layout_height="113dp"
         android:onClick="ponerFicha"
+        android:visibility="invisible"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn5"
         app:layout_constraintEnd_toEndOf="@+id/btn7"
         app:layout_constraintStart_toStartOf="@+id/btn7" />
@@ -165,6 +173,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="9dp"
         android:onClick="ponerFicha"
+        android:visibility="invisible"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn8"
         app:layout_constraintEnd_toStartOf="@+id/btn8"
         app:layout_constraintStart_toStartOf="parent" />
