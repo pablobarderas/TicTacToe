@@ -132,6 +132,7 @@ public class Game extends AppCompatActivity {
         Random random = new Random();
         int pos = random.nextInt(tablero.length);
 
+        // POSICION VACIA DEL TABLERO
         while(tablero[pos] != 0){
             pos = random.nextInt(tablero.length);
         }
@@ -150,6 +151,10 @@ public class Game extends AppCompatActivity {
         if(fichasPuestas < 9){
 
             if (tablero[0] + tablero[1] + tablero[2] == 3){
+                return 2;
+            }
+
+            if (tablero[0] + tablero[3] + tablero[6] == 3){
                 return 2;
             }
             return 0;
