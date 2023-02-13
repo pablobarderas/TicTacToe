@@ -98,6 +98,7 @@ public class Game extends AppCompatActivity {
                     view.setBackgroundResource(R.drawable.circle);
 
 
+
                 } else {
                     view.setBackgroundResource(R.drawable.x);
                     Toast.makeText(this, "Opcion: " + opcionJugador, Toast.LENGTH_SHORT).show();
