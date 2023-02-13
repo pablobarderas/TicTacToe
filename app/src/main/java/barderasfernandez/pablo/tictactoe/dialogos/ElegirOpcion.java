@@ -26,7 +26,7 @@ public class ElegirOpcion extends DialogFragment {
     ImageView circulo, equis;
     Activity actividad;
 
-    public String opcion = "";
+    public static String opcion = "";
 
     public ElegirOpcion() {
         // Required empty public constructor

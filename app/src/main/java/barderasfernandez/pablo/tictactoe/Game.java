@@ -26,6 +26,7 @@ public class Game extends AppCompatActivity {
     int estado = 0;
     int fichasPuestas = 0;
     TextView txtUserView;
+    ElegirOpcion dialogoOpcion;
     String opcionJugador;
     boolean juegoEmpezado = false;
 
@@ -55,7 +56,8 @@ public class Game extends AppCompatActivity {
                 R.id.btn7,R.id.btn8,R.id.btn9
         };
 
-
+        dialogoOpcion = new ElegirOpcion();
+        opcionJugador = dialogoOpcion.opcion;
     }
 
 
@@ -63,7 +65,7 @@ public class Game extends AppCompatActivity {
     public void empezar(View view){
 
         // MOSTRAR DIALOGO
-        ElegirOpcion dialogoOpcion = new ElegirOpcion();
+        dialogoOpcion = new ElegirOpcion();
         dialogoOpcion.show(getSupportFragmentManager(), "Dialogo de opción");
         opcionJugador = dialogoOpcion.opcion;
 
@@ -101,10 +103,11 @@ public class Game extends AppCompatActivity {
             int numBtn = Arrays.asList(botones).indexOf(view.getId());
 
             if (tablero[numBtn] == 0){
-                if (opcionJugador.equals("circulo")) {
+                if (ElegirOpcion.opcion.equals("circulo")) {
                     view.setBackgroundResource(R.drawable.circle);
                 } else {
                     view.setBackgroundResource(R.drawable.x);
+                    Toast.makeText(this, "Opcion: " + opcionJugador, Toast.LENGTH_SHORT).show();
                 }
                 tablero[numBtn] = 1;
 
@@ -124,6 +127,7 @@ public class Game extends AppCompatActivity {
 
     }
 
+    // IA
     public void ia(){
         Random random = new Random();
         int pos = random.nextInt(tablero.length);
@@ -133,7 +137,7 @@ public class Game extends AppCompatActivity {
         }
 
         Button b = findViewById(botones[pos]);
-        if(opcionJugador.equals("circulo")){
+        if(ElegirOpcion.opcion.equals("circulo")){
             b.setBackgroundResource(R.drawable.x);
         }else {
             b.setBackgroundResource(R.drawable.circle);
@@ -141,12 +145,19 @@ public class Game extends AppCompatActivity {
         tablero[pos] = -1;
     }
 
+    // ESTADO DE LA PARTIDA
     public int comprobarEstado(){
         if(fichasPuestas < 9){
+
+            if (tablero[0] + tablero[1] + tablero[2] == 3){
+                return 2;
+            }
             return 0;
         }else{
             return 2;
         }
+
+
     }
 
 }
