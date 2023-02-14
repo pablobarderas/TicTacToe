@@ -104,22 +104,10 @@ public class UserActivity extends AppCompatActivity {
         // LEER BASE DE DATOS
         SQLiteDatabase bdLeer = crearBD.getReadableDatabase();
 
-        // ALMACENA EL CONTENIDO DE LA CONSULTA
-        //Cursor contenido = bdLeer.rawQuery("Select * from partidas", null);
-
-
         // COMPROBACIONES
         // USUARIO Y CONTRASENYA
         if (!txtUser.getText().toString().equals("") || !txtPassword.getText().toString().equals("")){
 
-        // SI EL NOMBRE YA ESTA REGISTRADO
-//        while(contenido.moveToNext()){
-//            if (txtUser.getText().toString().equals(contenido.getString(0))){
-//                registrado = true;
-//            }
-//
-//        }
-//        contenido.close();
 
         // COMPROBAR USUARIO **** TODO
         registrado = comprobarUsuario(bdLeer, txtUser.getText().toString());
@@ -164,8 +152,6 @@ public class UserActivity extends AppCompatActivity {
         while(contenido.moveToNext()){
             if (user.equals(contenido.getString(0)))
                 registrado = true;
-
-
         }
 
         contenido.close();

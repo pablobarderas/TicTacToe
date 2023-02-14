@@ -79,7 +79,7 @@ public class ElegirOpcion extends DialogFragment {
         equis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(actividad, "Equis", Toast.LENGTH_SHORT).show();
+                Toast.makeText(actividad, "Empiezas con X", Toast.LENGTH_SHORT).show();
                 opcion = "equis";
                 dismiss();
             }

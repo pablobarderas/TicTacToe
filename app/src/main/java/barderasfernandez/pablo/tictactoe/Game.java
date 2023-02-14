@@ -71,7 +71,6 @@ public class Game extends AppCompatActivity {
         juegoEmpezado = true;
 
         // HACER BOTONES VISIBLES
-        ImageView b1, b2, b3, b4, b5, b6, b7,b8,b9;
         b1 = findViewById(R.id.btn1);
         b2 = findViewById(R.id.btn2);
         b3 = findViewById(R.id.btn3);
@@ -82,6 +81,15 @@ public class Game extends AppCompatActivity {
         b8 = findViewById(R.id.btn8);
         b9 = findViewById(R.id.btn9);
 
+        b1.setVisibility(View.VISIBLE);
+        b2.setVisibility(View.VISIBLE);
+        b3.setVisibility(View.VISIBLE);
+        b4.setVisibility(View.VISIBLE);
+        b5.setVisibility(View.VISIBLE);
+        b6.setVisibility(View.VISIBLE);
+        b7.setVisibility(View.VISIBLE);
+        b8.setVisibility(View.VISIBLE);
+        b9.setVisibility(View.VISIBLE);
 
 
     }
@@ -96,12 +104,8 @@ public class Game extends AppCompatActivity {
             if (tablero[numBtn] == 0){
                 if (ElegirOpcion.opcion.equals("circulo")) {
                     view.setBackgroundResource(R.drawable.circle);
-
-
-
                 } else {
                     view.setBackgroundResource(R.drawable.x);
-                    Toast.makeText(this, "Opcion: " + opcionJugador, Toast.LENGTH_SHORT).show();
                 }
                 tablero[numBtn] = 1;
 
@@ -112,6 +116,8 @@ public class Game extends AppCompatActivity {
                     ia();
                     fichasPuestas +=1;
                     estado = comprobarEstado();
+                }else {
+                    Toast.makeText(this, "HAS GANADOO!!!", Toast.LENGTH_SHORT).show();
                 }
 
             }
