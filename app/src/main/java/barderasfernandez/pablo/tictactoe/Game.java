@@ -23,6 +23,8 @@ public class Game extends AppCompatActivity {
             0, 0, 0
     };
 
+    int turno = 1;
+    int[] posGanadora = new int[]{-1,-1,-1};
     int estado = 0;
     int fichasPuestas = 0;
     TextView txtUserView;
@@ -98,6 +100,9 @@ public class Game extends AppCompatActivity {
     public void ponerFicha(View view){
 
         if (estado == 0) {
+
+            // TURNO DEL USUARIO
+            turno = 1;
             // OBTENER EL BOTÓN QUE SE PULSA Y MOSTRAR LA IMAGEN CORRESPONDIENTE
             int numBtn = Arrays.asList(botones).indexOf(view.getId());
 
@@ -112,13 +117,23 @@ public class Game extends AppCompatActivity {
                 // SE COLOCA UNA FICHA EN UNA POSICIÓN
                 fichasPuestas +=1;
                 estado = comprobarEstado();
+                terminarPartida();
+
+                // COLOCA LA IA
                 if (estado == 0){
+                    turno = -1;
                     ia();
                     fichasPuestas +=1;
                     estado = comprobarEstado();
-                }else {
-                    Toast.makeText(this, "HAS GANADOO!!!", Toast.LENGTH_SHORT).show();
+                    terminarPartida();
+
+                    // VICTORIA
                 }
+//                    findViewById(botones[0]).setBackgroundResource(R.drawable.xverde);
+//                    findViewById(botones[3]).setBackgroundResource(R.drawable.xverde);
+//                    findViewById(botones[6]).setBackgroundResource(R.drawable.xverde);
+
+
 
             }
 
@@ -148,20 +163,87 @@ public class Game extends AppCompatActivity {
 
     // ESTADO DE LA PARTIDA
     public int comprobarEstado(){
-        if(fichasPuestas < 9){
 
-            if (tablero[0] + tablero[1] + tablero[2] == 3){
-                return 2;
+        int nuevoEstado = 0;
+
+
+
+            // HORIZONTAL
+            if (Math.abs(tablero[0] + tablero[1] + tablero[2])  == 3){
+                posGanadora = new int[]{0,1,2};
+                nuevoEstado = turno;
+            }else if (Math.abs(tablero[3] + tablero[4] + tablero[5]) == 3){
+                posGanadora = new int[]{3,4,5};
+                nuevoEstado = turno;
+            }else if (Math.abs(tablero[6] + tablero[7] + tablero[8]) == 3){
+                posGanadora = new int[]{6,7,8};
+                nuevoEstado = turno;
             }
 
-            if (tablero[0] + tablero[3] + tablero[6] == 3){
-                return 2;
+            // VERTICAL
+            else if (Math.abs(tablero[0] + tablero[3] + tablero[6]) == 3){
+                posGanadora = new int[]{0,3,6};
+                nuevoEstado = turno;
+            }else if (Math.abs(tablero[1] + tablero[4] + tablero[7]) == 3){
+                posGanadora = new int[]{1,4,7};
+                nuevoEstado = turno;
+            }else if (Math.abs(tablero[2] + tablero[5] + tablero[8]) == 3){
+                posGanadora = new int[]{2,5,8};
+                nuevoEstado = turno;
             }
-            return 0;
-        }else{
-            return 2;
+
+            // DIAGONALES
+            else if (Math.abs(tablero[0] + tablero[4] + tablero[8]) == 3){
+                posGanadora = new int[]{0,4,8};
+                nuevoEstado = turno;
+            }else if (Math.abs(tablero[2] + tablero[4] + tablero[6]) == 3){
+                posGanadora = new int[]{2,4,6};
+                nuevoEstado = turno;
+            } else if (fichasPuestas == 9) {
+                nuevoEstado = 2;
         }
 
+
+        return nuevoEstado;
+
+
+    }
+
+    // METODO PARA DETERMINAR EL GANADOR
+    public void terminarPartida(){
+
+        int fichaVictoria = R.drawable.xverde;
+
+        if (ElegirOpcion.opcion.equals("circulo")){
+            fichaVictoria = R.drawable.circleverde;
+        }else {
+
+        }
+
+        if (estado == 1 || estado == -1){
+            // GANA EL USUARIO
+            if(estado == 1){
+                Toast.makeText(this, "Has ganado!!", Toast.LENGTH_SHORT).show();
+
+                // GANA LA MAQUINA
+            } else {
+                Toast.makeText(this, "Has perdido!!", Toast.LENGTH_SHORT).show();
+
+                if (ElegirOpcion.opcion.equals("equis")){
+                    fichaVictoria = R.drawable.circleverde;
+                }else{
+                    fichaVictoria = R.drawable.xverde;
+                }
+            }
+
+            // COLOREAR GANADORES
+            for (int i = 0; i < posGanadora.length; i++) {
+                findViewById(botones[posGanadora[i]]).setBackgroundResource(fichaVictoria);
+            }
+
+        } else if (estado == 2) {
+            Toast.makeText(this, "Empate!!", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
