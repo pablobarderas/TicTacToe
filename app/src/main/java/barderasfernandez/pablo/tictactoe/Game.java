@@ -60,7 +60,6 @@ public class Game extends AppCompatActivity {
         user = "";
         if (extras != null) {
             user = extras.getString("User");
-            Toast.makeText(this, user, Toast.LENGTH_SHORT).show();
         }
 
         txtUserView.setText(user);

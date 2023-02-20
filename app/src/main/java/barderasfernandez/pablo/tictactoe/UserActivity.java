@@ -53,7 +53,6 @@ public class UserActivity extends AppCompatActivity {
             while (contenido.moveToNext()) {
                 if (txtUser.getText().toString().equals(contenido.getString(0)) &&
                         txtPassword.getText().toString().equals(contenido.getString(1))){
-                    Toast.makeText(this, "Usuario: " + txtUser.getText(), Toast.LENGTH_SHORT).show();
                     registrado = true;
                 }
 

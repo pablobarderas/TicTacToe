@@ -33,7 +33,6 @@ public class PuntuacionActivity extends AppCompatActivity {
         usuario = "";
         if (extras != null) {
             usuario = extras.getString("User");
-            Toast.makeText(this, usuario, Toast.LENGTH_SHORT).show();
         }
 
         txtUser.setText(usuario);
