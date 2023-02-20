@@ -2,6 +2,9 @@ package barderasfernandez.pablo.tictactoe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 import java.util.Arrays;
 import java.util.Random;
 
+import barderasfernandez.pablo.tictactoe.BaseDeDatos.CrearBD;
 import barderasfernandez.pablo.tictactoe.dialogos.ElegirOpcion;
 
 public class Game extends AppCompatActivity {
@@ -31,6 +35,11 @@ public class Game extends AppCompatActivity {
     ElegirOpcion dialogoOpcion;
     String opcionJugador;
     boolean juegoEmpezado = false;
+    String user;
+    TextView win;
+    TextView lose;
+    int ganadas = 0;
+    int perdidas = 0;
 
     Integer[] botones;
 
@@ -43,9 +52,12 @@ public class Game extends AppCompatActivity {
 
         txtUserView = findViewById(R.id.txtUserView);
 
+        // LEER WIN Y LOSE DE LA BASE DE DATOS
+        leerPuntuacion();
+
         // Mostrar usuario que ha iniciado sesion
         Bundle extras = getIntent().getExtras();
-        String user = "";
+        user = "";
         if (extras != null) {
             user = extras.getString("User");
             Toast.makeText(this, user, Toast.LENGTH_SHORT).show();
@@ -59,6 +71,28 @@ public class Game extends AppCompatActivity {
                 R.id.btn4,R.id.btn5,R.id.btn6,
                 R.id.btn7,R.id.btn8,R.id.btn9
         };
+
+    }
+
+    // LEER PUNTUACION DE LA BASE DE DATOS
+    private void leerPuntuacion() {
+
+        // LEER BASE DE DATOS
+        CrearBD leerBD = new CrearBD(this);
+        SQLiteDatabase bdLeer = leerBD.getReadableDatabase();
+
+        // ALMACENA EL CONTENIDO DE LA CONSULTA
+        Cursor contenido = bdLeer.rawQuery("Select * from partidas", null);
+
+        // BUSCAR USUARIO Y MOSTRAR PARTIDAS GANADAS Y PERDIDAS
+        while(contenido.moveToNext()){
+            if(contenido.getString(0).equals(user)){
+                ganadas = contenido.getInt(2);
+                perdidas = contenido.getInt(3);
+            }
+        }
+
+        contenido.close();
 
     }
 
@@ -129,11 +163,6 @@ public class Game extends AppCompatActivity {
 
                     // VICTORIA
                 }
-//                    findViewById(botones[0]).setBackgroundResource(R.drawable.xverde);
-//                    findViewById(botones[3]).setBackgroundResource(R.drawable.xverde);
-//                    findViewById(botones[6]).setBackgroundResource(R.drawable.xverde);
-
-
 
             }
 
@@ -216,18 +245,20 @@ public class Game extends AppCompatActivity {
 
         if (ElegirOpcion.opcion.equals("circulo")){
             fichaVictoria = R.drawable.circleverde;
-        }else {
-
         }
 
         if (estado == 1 || estado == -1){
             // GANA EL USUARIO
             if(estado == 1){
                 Toast.makeText(this, "Has ganado!!", Toast.LENGTH_SHORT).show();
+                leerPuntuacion();
+                puntoUsuario();
 
                 // GANA LA MAQUINA
             } else {
                 Toast.makeText(this, "Has perdido!!", Toast.LENGTH_SHORT).show();
+                leerPuntuacion();
+                puntoMaquina();
 
                 if (ElegirOpcion.opcion.equals("equis")){
                     fichaVictoria = R.drawable.circleverde;
@@ -237,14 +268,60 @@ public class Game extends AppCompatActivity {
             }
 
             // COLOREAR GANADORES
-            for (int i = 0; i < posGanadora.length; i++) {
-                findViewById(botones[posGanadora[i]]).setBackgroundResource(fichaVictoria);
+            for (int j : posGanadora) {
+                findViewById(botones[j]).setBackgroundResource(fichaVictoria);
             }
 
         } else if (estado == 2) {
             Toast.makeText(this, "Empate!!", Toast.LENGTH_SHORT).show();
+
+            verPuntuacion();
         }
 
+    }
+
+    // PUNTUA EL USUARIO
+    private void puntoUsuario() {
+
+        ganadas++;
+
+        // INSTANCIAR BASE DE DATOS
+        CrearBD leerBD = new CrearBD(this);
+        SQLiteDatabase bdModificar = leerBD.getWritableDatabase();
+
+        // ACTUALIZAR DATOS
+        bdModificar.execSQL("UPDATE partidas SET ganadas=" + ganadas + " WHERE nombre='" + user + "'");
+        leerBD.close();
+
+        verPuntuacion();
+
+
+    }
+
+    // PUNTUA LA MAQUINA
+    private void puntoMaquina() {
+
+        perdidas++;
+
+        // INSTANCIAR BASE DE DATOS
+        CrearBD leerBD = new CrearBD(this);
+        SQLiteDatabase bdModificar = leerBD.getWritableDatabase();
+
+        // ACTUALIZAR DATOS
+        bdModificar.execSQL("UPDATE partidas SET perdidas=" + perdidas + " WHERE nombre='" + user + "'");
+
+        leerBD.close();
+
+        verPuntuacion();
+
+
+    }
+
+    private void verPuntuacion(){
+        finish();
+        Intent intent = new Intent(this, PuntuacionActivity.class);
+        intent.putExtra("User", user);
+        startActivity(intent);
     }
 
 }
